@@ -3,7 +3,7 @@
 import models
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer, DateTime, MetaData
 import uuid
 from os import getenv
 from datetime import datetime
@@ -11,7 +11,9 @@ from datetime import datetime
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
 if getenv("HBNB_TYPE_STORAGE") == "db":
+    meta = MetaData()
     Base = declarative_base()
+    Base.metadata = meta
 else:
     Base = object
 
