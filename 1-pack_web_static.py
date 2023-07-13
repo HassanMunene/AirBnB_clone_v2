@@ -1,19 +1,10 @@
 #!/usr/bin/python3
-"""
-This scritp creates a .tgz compressed file that contains the web static\
-content.
-The files name will also contain the date and time it was created\
-so as to help in keeping multiple versions
-"""
 from invoke import run as local
 from invoke import task
 from datetime import datetime
 
 
 @task
-"""
-the task that will handle the functions
-"""
 def do_pack(context):
     """
     creates a .tgz archiver from contents of webstatic
