@@ -11,6 +11,9 @@ from datetime import datetime
 
 
 @task
+"""
+the task that will handle the functions
+"""
 def do_pack(context):
     """
     creates a .tgz archiver from contents of webstatic
