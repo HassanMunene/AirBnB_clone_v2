@@ -5,10 +5,12 @@ content.
 The files name will also contain the date and time it was created\
 so as to help in keeping multiple versions
 """
-from fabric.api import local
+from invoke import run as local
+from invoke import task
 from datetime import datetime
 
-def do_pack():
+@task
+def do_pack(context):
     """
     creates a .tgz archiver from contents of webstatic
     we will also create a folder called versions that will contain
