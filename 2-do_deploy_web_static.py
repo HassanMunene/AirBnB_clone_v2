@@ -2,6 +2,7 @@
 """
 compress the web static package
 """
+from invoke import task
 from fabric.api import *
 from datetime import datetime
 from os import path
@@ -10,6 +11,7 @@ env.hosts = ['3.90.85.212', '52.203.214.248']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
 
+@task
 def do_deploy(archive_path):
     """
     deploy the compressed archive to the
