@@ -1,0 +1,25 @@
+- name: Generate .tgz archive file
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Create a directory named versions
+      file:
+        path: /home/hassanmunene/Desktop/AirBnB_clone_v2/versions
+        state: directory
+
+    - name: Generate the archive
+      ansible.builtin.archive:
+        path: /home/hassanmunene/Desktop/AirBnB_clone_v2/web_static
+        dest: /home/hassanmunene/Desktop/AirBnB_clone_v2/versions/web_static_{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}.tgz
+        format: gz
+
+    - name: Check if archive has been created
+      stat:
+        path: /home/hassanmunene/Desktop/AirBnB_clone_v2/versions/web_static_{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}.tgz
+      register: archive_stat
+
+    - name: Return archive path if created
+      debug:
+        var: archive_stat.stat.exists | ternary('/home/hassanmunene/Desktop/AirBnB_clone_v2/versions/web_static_{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}.tgz', None)
+
