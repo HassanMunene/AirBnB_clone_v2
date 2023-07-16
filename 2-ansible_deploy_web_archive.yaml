@@ -1,0 +1,41 @@
+- name: Upload an archive file to my webservers and uncompress it
+  hosts: Webservers
+  gather_facts: true
+  tasks:
+    - name: copy the archive from my local to remote severs
+      copy:
+        src: /home/hassanmunene/Desktop/AirBnB_clone_v2/versions/web_static_20230715173953.tgz
+        dest: /tmp/
+        mode: 0644
+
+    - name: Extract acrhive  file on remote server
+      command: tar -xzf /tmp/web_static_20230715173953.tgz -C /data/web_static/releases/
+      become: true
+
+    - name: Rename extracted folder
+      command: mv /data/web_static/releases/web_static /data/web_static/releases/web_static_20230715173953
+      become: true
+
+    - name: Delete the current symbolic link
+      file:
+        path: /data/web_static/current
+        state: absent
+      become: true
+
+    - name: Create a new symbolic link
+      file:
+        src: /data/web_static/releases/web_static_20230715173953
+        dest: /data/web_static/current
+        state: link
+      become: true
+
+    - name: Check if all operations were successful
+      stat:
+        path: /data/web_static/current
+      register: current_link
+
+    - name: Return success or failure
+      debug:
+        msg: "Deployment successful!"
+      when: current_link.stat.islnk == True
+
