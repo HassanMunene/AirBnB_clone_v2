@@ -14,8 +14,14 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Amenity": Amenity, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+classes = {
+    "Amenity": Amenity,
+    "City": City,
+    "Place": Place,
+    "Review": Review,
+    "State": State,
+    "User": User
+}
 
 
 class DBStorage:
@@ -46,8 +52,9 @@ class DBStorage:
 
     def all(self, cls=None):
         """
-        this func should return dictionary with all objects depending
-        on the clas name arg(cls)
+        this function should return dictionary with
+        all objects depending
+        on the clas name arg(cls) provided
         """
         if cls:
             objs = self.__session.query(classes[cls])

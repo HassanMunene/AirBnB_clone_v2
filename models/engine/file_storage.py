@@ -11,7 +11,12 @@ from models.review import Review
 
 
 class FileStorage:
-    """This class manages storage of hbnb models in JSON format"""
+    """
+    it is in this class that we declare methods that stores hbnb
+    models in json format
+    This class manages storage of hbnb models in JSON format
+    """
+    # declare private class attributes
     __file_path = 'file.json'
     __objects = {}
 
@@ -81,5 +86,8 @@ class FileStorage:
             return
 
     def close(self):
-        """Call the reload method"""
+        """
+        Call the reload method for desearilizing
+        the json file to objects
+        """
         self.reload()
