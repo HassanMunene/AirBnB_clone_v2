@@ -24,6 +24,7 @@ classes = {
     'Amenity': Amenity
 }
 
+
 class DBStorage:
     """
     new storage system that deals with MySQL database
@@ -43,7 +44,9 @@ class DBStorage:
         ENV = getenv("HBNB_ENV")
 
         # set up sqlalchemy engine for connecting to mysql database
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(USER, PWD, HOST, DB), pool_pre_ping=True)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
+                                      .format(USER, PWD, HOST, DB),
+                                      pool_pre_ping=True)
 
         if ENV == "test":
             Base.metadata.drop_all(self.__engine)
@@ -67,7 +70,6 @@ class DBStorage:
                 del a_dict["_sa_instance_state"]
         return a_dict
 
-
     def new(self, obj):
         """
         add an object to the current database session
@@ -87,7 +89,6 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
             self.__session.commit()
-
 
     def get(self, cls_name, id):
         """
