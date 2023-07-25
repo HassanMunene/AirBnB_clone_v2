@@ -85,3 +85,10 @@ class FileStorage:
                 self.save()
         else:
             pass
+
+    def close(self):
+        """
+        call the reload method to save changes back to JSON file
+        to maintain persistence when the application stops running
+        """
+        self.reload()
