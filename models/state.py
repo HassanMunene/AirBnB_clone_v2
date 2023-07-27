@@ -3,11 +3,12 @@
 State Module for HBNB project
 """
 import models
+from datetime import datetime
 from models.base_model import BaseModel, Base
 from models.city import City
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
 
@@ -19,6 +20,9 @@ class State(BaseModel, Base):
     """
     if getenv("HBNB_TYPE_STORAGE") == "db":
         __tablename__ = "states"
+        id = Column(String(60), primary_key=True, nullable=False)
+        created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
         name = Column(String(128), nullable=False)
         cities = relationship('City', cascade="all, delete", backref="state")
     else:
