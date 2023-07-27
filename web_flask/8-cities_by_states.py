@@ -9,6 +9,7 @@ from models.state import State
 # initiate an application called app
 app = Flask(__name__)
 
+
 @app.teardown_appcontext
 def close_session(self):
     """
