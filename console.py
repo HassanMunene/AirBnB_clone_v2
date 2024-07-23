@@ -32,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
 
     valid_keys = {
         "BaseModel": ["id", "created_at", "updated_at"],
-        "User": ["id", "created_at", "updated_at", "email", 
+        "User": ["id", "created_at", "updated_at", "email",
                     "password", "first_name", "last_name",],
         "City": ["id", "created_at", "updated_at", "state_id", "name"],
         "State": ["id", "created_at", "updated_at", "name"],
@@ -42,7 +42,7 @@ class HBNBCommand(cmd.Cmd):
             "number_bathrooms", "max_guest", "price_by_night", "latitude",
             "longitude", "amenity_ids"
         ],
-        "Amenity": ["id", "created_at", "updated_at", "name"], 
+        "Amenity": ["id", "created_at", "updated_at", "name"],
         "Review": ["id", "created_at", "updated_at","place_id", "user_id", "text"],
     }
 
@@ -260,21 +260,21 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: destroy <className> <objectId>\n")
 
     def do_all(self, args):
-        """ Shows all objects, or all objects of a class"""
+        """Shows all objects, or all objects of a class"""
+        import models
         print_list = []
 
         if args:
-            args = args.split(' ')[0]  # remove possible trailing args
+            args = args.split(" ")[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
+            for k, v in models.storage.all(eval(args)).items():
+                if k.split(".")[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in models.storage.all().items():
                 print_list.append(str(v))
-
         print(print_list)
 
     def help_all(self):
